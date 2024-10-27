@@ -1,4 +1,4 @@
-namespace SpeedShip.Models
+namespace SpeedShip.Model.Models
 {
 	public class ErrorViewModel
 	{

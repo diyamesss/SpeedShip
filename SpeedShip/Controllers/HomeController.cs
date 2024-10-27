@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SpeedShip.Models;
+using SpeedShip.Model.Models;
 using System.Diagnostics;
 
 namespace SpeedShip.Controllers
