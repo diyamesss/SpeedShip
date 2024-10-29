@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SpeedShip.DataAccess.Database;
+using SpeedShip.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +26,19 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+MigrateDatabase();
+
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void MigrateDatabase()
+{
+	using (var scope = app.Services.CreateScope())
+	{
+		var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+		dbInitializer.Initialize();
+	}
+}
