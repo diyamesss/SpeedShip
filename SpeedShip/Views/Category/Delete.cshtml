@@ -1,0 +1,35 @@
+﻿@model Category
+
+<h2>Delete Category</h2>
+<hr />
+<form method="post">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Category Id</th>
+				<th>Category Name</th>
+				<th>Display Order</th>
+				<th>Created By</th>
+				<th>Date Created</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>@Model.CategoryId</td>
+				<td>@Model.CategoryName</td>
+				<td>@Model.DisplayOrder</td>
+				<td>@Model.CreatedBy</td>
+				<td>@Model.DateCreated</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" value="@Model.CategoryId"/>
+	<div class="row">
+		<div class="col-6">
+			<button type="submit" class="btn btn-danger w-100">Delete</button>
+		</div>
+		<div class="col-6">
+			<a asp-controller="Category" asp-action="Update" asp-route-categoryId="@Model.CategoryId" class="btn btn-secondary w-100">Back</a>
+		</div>
+	</div>
+</form>
