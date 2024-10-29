@@ -17,15 +17,17 @@
 			<th>CategoryId</th>
 			<th>CategoryName</th>
 			<th>DisplayOrder</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var category in Model)
+		@foreach (var category in Model.OrderBy(c => c.DisplayOrder))
 		{
 			<tr>
 				<td>@category.CategoryId</td>
 				<td>@category.CategoryName</td>
 				<td>@category.DisplayOrder</td>
+				<td><a asp-controller="Category" asp-action="Update" asp-route-categoryId="@category.CategoryId">View</a></td>
 			</tr>
 		}
 	</tbody>
