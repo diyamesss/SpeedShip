@@ -1,5 +1,7 @@
 ﻿@model Category
 
+<h2>Update Category</h2>
+<hr />
 <form method="post">
 	<div class="container">
 		<div class="mb-2">
@@ -31,7 +33,7 @@
 		</div>
 		<div class="row">
 			<div class="col-4">
-				<input type="submit" class="btn btn-primary w-100" />
+				<input type="submit" class="btn btn-primary w-100" value="Update"/>
 			</div>
 			<div class="col-4">
 				<a asp-controller="Category" asp-action="Delete" asp-route-categoryId="@Model.CategoryId" class="btn btn-danger w-100">Delete</a>

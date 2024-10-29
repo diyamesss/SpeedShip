@@ -38,6 +38,7 @@ namespace SpeedShip.Controllers
 			category.DateCreated = DateTime.UtcNow;
 			_dbSpeedShipContext.Categories.Add(category);
 			_dbSpeedShipContext.SaveChanges();
+			TempData["Created"] = "Successfully created category " + category.CategoryName;
 			return RedirectToAction("Index", "Category");
 		}
 
@@ -63,8 +64,9 @@ namespace SpeedShip.Controllers
 			category.DateUpdated = DateTime.UtcNow;
 			_dbSpeedShipContext.Categories.Update(category);
 			_dbSpeedShipContext.SaveChanges();
+			TempData["Updated"] = "Successfully updated category with id " + category.CategoryId;
 			return RedirectToAction("Index", "Category");
-		}
+        }
 
 		public IActionResult Delete(long categoryId)
 		{
@@ -82,7 +84,8 @@ namespace SpeedShip.Controllers
 
 			_dbSpeedShipContext.Categories.Remove(existingCategory);
 			_dbSpeedShipContext.SaveChanges();
+			TempData["Deleted"] = "Successfully deleted category " + existingCategory.CategoryName;
 			return RedirectToAction("Index", "Category");
-		}
+        }
 	}
 }
