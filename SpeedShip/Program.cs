@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SpeedShip.DataAccess.Database;
 using SpeedShip.DataAccess.DbInitializer;
+using SpeedShip.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
 	builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IDbInitializer,DbInitializer>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 var app = builder.Build();
 
@@ -31,7 +33,7 @@ MigrateDatabase();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+	pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

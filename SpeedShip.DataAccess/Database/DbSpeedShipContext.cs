@@ -17,6 +17,7 @@ public partial class DbSpeedShipContext : DbContext
     }
 
     public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,6 +45,27 @@ public partial class DbSpeedShipContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
         });
+
+        modelBuilder.Entity<Product>().HasData(
+                        new Product()
+                        {
+                            ProductId = 1,
+                            ProductName = "Godzilla x Kong: The New Empire",
+                            Description = "Movie",
+                            Price = 500,
+                            CreatedBy = "Admin",
+                            DateCreated = DateTime.UtcNow
+                        },
+                        new Product()
+                        {
+                            ProductId = 2,
+                            ProductName = "Don't Move",
+                            Description = "Movie",
+                            Price = 500,
+                            CreatedBy = "Admin",
+                            DateCreated = DateTime.UtcNow
+                        }
+            );
 
         OnModelCreatingPartial(modelBuilder);
     }
