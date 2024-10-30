@@ -1,30 +1,33 @@
 ﻿@model Category
 
-<h2>Create Category</h2>
-<hr />
+
 <form method="post">
-	<div class="container">
-		<div class="mb-2">
+	<div class="border p-3">
+		<div class="row">
+			<h2>Create Category</h2>
+			<hr />
+		</div>
+		<div class="mb-2 row">
 			<label asp-for="@Model.CategoryName"></label>
 			<input asp-for="@Model.CategoryName" class="form-control" />
 			<span asp-validation-for="@Model.CategoryName" class="text-danger"></span>
 		</div>
-		<div class="mb-2">
+		<div class="mb-2 row">
 			<label asp-for="@Model.Description"></label>
 			<input asp-for="@Model.Description" class="form-control" />
 			<span asp-validation-for="@Model.Description" class="text-danger"></span>
 		</div>
-		<div class="mb-2">
+		<div class="mb-2 row">
 			<label asp-for="@Model.DisplayOrder"></label>
 			<input asp-for="@Model.DisplayOrder" class="form-control" />
 			<span asp-validation-for="@Model.DisplayOrder" class="text-danger"></span>
 		</div>
 		<div class="row">
-			<div class="col-6 text-end">
-				<input type="submit" class="btn btn-primary w-50" value="Create"/>
+			<div class="col-6">
+				<input type="submit" class="btn btn-primary form-control" value="Create"/>
 			</div>
-			<div class="col-6 text-start">
-				<a asp-controller="Category" asp-action="Index" class="btn btn-secondary w-50">Back</a>
+			<div class="col-6">
+				<a asp-controller="Category" asp-action="Index" class="btn btn-outline-secondary border form-control">Back</a>
 			</div>
 		</div>
 	</div>
