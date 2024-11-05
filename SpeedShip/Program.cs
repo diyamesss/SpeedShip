@@ -22,11 +22,16 @@ if (builder.Environment.IsDevelopment())
 
 if (builder.Environment.IsProduction())
 {
-    var client = new SecretClient(new Uri(builder.Configuration.GetSection("KeyVault:KeyVaultUrl").Value), new DefaultAzureCredential());
-    var secret = await client.GetSecretAsync("SpeedShipProductionConnectionString", "4cc86e5817744311b0a64db17ac25288");
+	var KeyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultUrl").Value;
+	var SecretName = builder.Configuration.GetSection("KeyVault:SecretName").Value;
+	var SecretVersion = builder.Configuration.GetSection("KeyVault:SecretVersion").Value;
+
+    var client = new SecretClient(new Uri(KeyVaultUrl), new DefaultAzureCredential());
+    var secret = await client.GetSecretAsync(SecretName, SecretVersion);
 
     builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
 	secret.Value.Value));
+    Console.WriteLine(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
 }
 
 var app = builder.Build();
