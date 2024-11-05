@@ -1,16 +1,32 @@
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Azure.KeyVault;
 using Microsoft.EntityFrameworkCore;
 using SpeedShip.DataAccess.Database;
 using SpeedShip.DataAccess.DbInitializer;
 using SpeedShip.DataAccess.Repository;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
-	builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IDbInitializer,DbInitializer>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+
+if (builder.Environment.IsDevelopment())
+{
+	builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
+	builder.Configuration.GetConnectionString("DefaultConnection")));
+}
+if (builder.Environment.IsProduction())
+{
+	var client = new SecretClient(new Uri(builder.Configuration.GetSection("KeyVault:KeyVaultUrl").Value), new DefaultAzureCredential());
+	var secret = await client.GetSecretAsync(builder.Configuration.GetSection("KeyVault:SecretName").Value);
+
+	builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
+	secret.Value.ToString()));
+}
 
 var app = builder.Build();
 
