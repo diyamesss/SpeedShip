@@ -14,22 +14,19 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IDbInitializer,DbInitializer>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
-//if (builder.Environment.IsDevelopment())
-//{
-//	builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
-//	builder.Configuration.GetConnectionString("DefaultConnection")));
-//}
-//if (builder.Environment.IsProduction())
-//{
-//	var client = new SecretClient(new Uri(builder.Configuration.GetSection("KeyVault:KeyVaultUrl").Value), new DefaultAzureCredential());
-//	var secret = await client.GetSecretAsync(builder.Configuration.GetSection("KeyVault:SecretName").Value);
+if (builder.Environment.IsDevelopment())
+{
+	builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
+	builder.Configuration.GetConnectionString("DefaultConnection")));
+}
+if (builder.Environment.IsProduction())
+{
+	var client = new SecretClient(new Uri(builder.Configuration.GetSection("KeyVault:KeyVaultUrl").Value), new DefaultAzureCredential());
+	var secret = await client.GetSecretAsync(builder.Configuration.GetSection("KeyVault:SecretName").Value);
 
-//	builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
-//	secret.Value.ToString()));
-//}
-
-builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnection")));
+	builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
+	secret.Value.Value));
+}
 
 var app = builder.Build();
 
