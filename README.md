@@ -11,7 +11,11 @@ This project is built using **ASP.NET Core 8** and follows the **N-Tier architec
 
 - N-Tier architecture for separation of concerns
 - Entity Framework for database interactions
-- Continuous Integration and Continuous Deployment (CI/CD) to Azure
+- Repository Pattern
+- Continuous Integration and Continuous Deployment (CI/CD) to Azure Web App
+- Azure Key Vault storage for connection string
+- Azure Database
+- Azure Environment Variables
 
 ## Tech Stack
 
