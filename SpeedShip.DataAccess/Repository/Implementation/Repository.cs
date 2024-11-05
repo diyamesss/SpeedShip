@@ -36,7 +36,16 @@ namespace SpeedShip.DataAccess.Repository
 
 		public async Task<IEnumerable<T>> GetAllAsync()
 		{
-			return await _dbSet.ToListAsync();
+			try
+			{
+                return await _dbSet.ToListAsync();
+
+            }
+            catch (Exception ex)
+			{
+
+				throw;
+			}
 		}
 
 		public async Task SaveAsync()
