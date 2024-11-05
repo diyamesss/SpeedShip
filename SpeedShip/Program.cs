@@ -22,7 +22,7 @@ if (builder.Environment.IsDevelopment())
 
 if (builder.Environment.IsProduction())
 {
-	var KeyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultUrl").Value;
+	var KeyVaultUrl = Environment.GetEnvironmentVariable("KeyVaultUrl");
 	var SecretName = builder.Configuration.GetSection("KeyVault:SecretName").Value;
 	var SecretVersion = builder.Configuration.GetSection("KeyVault:SecretVersion").Value;
 
@@ -31,7 +31,6 @@ if (builder.Environment.IsProduction())
 
     builder.Services.AddDbContext<DbSpeedShipContext>(options => options.UseSqlServer(
 	secret.Value.Value));
-    Console.WriteLine(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
 }
 
 var app = builder.Build();
