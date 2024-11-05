@@ -23,8 +23,8 @@ if (builder.Environment.IsDevelopment())
 if (builder.Environment.IsProduction())
 {
 	var KeyVaultUrl = Environment.GetEnvironmentVariable("KeyVaultUrl");
-	var SecretName = builder.Configuration.GetSection("KeyVault:SecretName").Value;
-	var SecretVersion = builder.Configuration.GetSection("KeyVault:SecretVersion").Value;
+	var SecretName = Environment.GetEnvironmentVariable("SecretName");
+	var SecretVersion = Environment.GetEnvironmentVariable("SecretVersion");
 
     var client = new SecretClient(new Uri(KeyVaultUrl), new DefaultAzureCredential());
     var secret = await client.GetSecretAsync(SecretName, SecretVersion);
